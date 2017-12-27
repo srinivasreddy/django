@@ -74,6 +74,10 @@ class BaseForm:
     def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,
                  initial=None, error_class=ErrorList, label_suffix=None,
                  empty_permitted=False, field_order=None, use_required_attribute=None, renderer=None):
+
+        if empty_permitted and use_required_attribute:
+            raise ValueError("Both `empty_permitted` and `use_required_attribute` attributes cannot be set to `True`.")
+
         self.is_bound = data is not None or files is not None
         self.data = {} if data is None else data
         self.files = {} if files is None else files
